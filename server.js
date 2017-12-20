@@ -11,13 +11,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-// Require Notes routes
-require('./app/routes/note.routes.js')(app);
+// Require User routes
+require('./app/routes/user.routes.js')(app);
 
 // Configuring the database
 var dbConfig = require('./config/database.config.js');
 var mongoose = require('mongoose');
 
+//
+// mongoose.connect(dbConfig.url,{
+//   useMongoClient: true
+// });
 
 mongoose.connect(dbConfig.url,{
   useMongoClient: true
