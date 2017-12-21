@@ -23,7 +23,7 @@ var mongoose = require('mongoose');
 //   useMongoClient: true
 // });
 
-mongoose.connect(process.env.MONGODB_URI,{
+mongoose.connect(process.env.MONGODB_URI || dbConfig,{
   useMongoClient: true
 });
 
@@ -40,6 +40,6 @@ app.get('/', function(req, res){
 });
 
 // listen for requests
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Server is listening on port 3000");
 });
