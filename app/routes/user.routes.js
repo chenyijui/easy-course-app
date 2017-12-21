@@ -5,14 +5,14 @@ module.exports = function(app) {
     app.post('/users', users.create);
 
     // Retrieve all User
-    // app.get('/users', users.findAll);
+    app.get('/users', users.findAll);
 
     // Retrieve a single User with useId
-    app.get('/users/:noteId', users.findOne);
+    app.get('/users/:userId', users.findOne);
 
     // Update a User with useId
-    app.put('/users/:useId', users.update);
+    app.put('/users/:userId', users.update);
 
     // Delete a User with useId
-    app.delete('/users/:useId', users.delete);
+    app.delete('/users/:userId', users.delete);
 }

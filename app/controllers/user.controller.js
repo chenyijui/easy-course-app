@@ -28,19 +28,36 @@ exports.create = function(req, res) {
 };
 
 
-// exports.findAll = function(req, res) {
-//     // Retrieve and return all users from the database.
-//
-// };
+exports.findAll = function(req, res) {
+    User.find(function(err, notes){
+        if(err) {
+            res.status(500).send({message: "Some error"});
+        } else {
+            res.send(notes);
+        }
+    });
+};
 
 exports.findOne = function(req, res) {
-    // Find a single note with a noteId
-
+    User.findById(req.params.userId, function(err, data) {
+        if(err) {
+            res.status(500).send({message: "Could not retrieve user with id " + req.params.userId});
+        } else {
+            res.send(data);
+            console.log(req.params.userId);
+            console.log(data);
+        }
+    });
 };
 
 exports.update = function(req, res) {
-    // Update a note identified by the noteId in the request
-
+    User.findById(req.params.useId,function(err, data) {
+        if(err) {
+            res.status(500).send({message: "Could not retrieve user with id"+ req.params.useId});
+        }
+        user.name = req.body.name;
+        user. 
+    });
 };
 
 exports.delete = function(req, res) {
