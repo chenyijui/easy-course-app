@@ -1,6 +1,5 @@
 # Dependency directories
-
 node_modules/
-/config/
+config/
 package-lock.json/
 .tern-project/
