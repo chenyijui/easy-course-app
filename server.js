@@ -23,7 +23,7 @@ var mongoose = require('mongoose');
 //   useMongoClient: true
 // });
 
-mongoose.connect(process.env.MONGODB_URI.url,{
+mongoose.connect(process.env.MONGODB_URI,{
   useMongoClient: true
 });
 
