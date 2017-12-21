@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-// Require Notes routes
+// Require  routes
 
 // create express app
 var app = express();
@@ -23,7 +23,7 @@ var mongoose = require('mongoose');
 //   useMongoClient: true
 // });
 
-mongoose.connect(dbConfig.url,{
+mongoose.connect(process.env.MONGODB_URI.url,{
   useMongoClient: true
 });
 
@@ -36,7 +36,7 @@ mongoose.connection.once('open', function() {
 })
 // define a simple route
 app.get('/', function(req, res){
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
+    res.json({"message": "Welcome to EasyCourse application."});
 });
 
 // listen for requests
