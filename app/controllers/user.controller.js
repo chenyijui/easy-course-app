@@ -51,16 +51,28 @@ exports.findOne = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    User.findById(req.params.useId,function(err, data) {
+    User.findById(req.params.userId,function(err, user) {
         if(err) {
             res.status(500).send({message: "Could not retrieve user with id"+ req.params.useId});
         }
         user.name = req.body.name;
-         
+        user.username = req.body.username;
+        user.password = req.body.passward;
+        user.status.education = req.body.education;
+        user.status.info = req.body.info;
+
+        user.save(function(err, data) {
+            if(err) {
+                res.status(500).send({message: "Could not update note with id " + req.params.noteId});
+            } else {
+                res.send(data);
+                console.log(data);
+            }
+        });
     });
 };
 
 exports.delete = function(req, res) {
-    // Delete a note with the specified noteId in the request
+    // Delete a user with the specified userId in the request
 
 };
