@@ -56,7 +56,7 @@ exports.update = function(req, res) {
             res.status(500).send({message: "Could not retrieve user with id"+ req.params.useId});
         }
         user.name = req.body.name;
-        user. 
+         
     });
 };
 
