@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 
 var CourseSchema = mongoose.Schema({
-    courseName  : String,
-    category: String,
+    coursename  : String,
+    category: [{
+        title: String,
+        url: String
+    }],
     teacher: String,
-    url:String,
     brief:String,
 }, {
     timestamps: true

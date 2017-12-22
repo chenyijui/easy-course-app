@@ -13,15 +13,14 @@ app.use(bodyParser.json())
 
 // Require User routes
 require('./app/routes/user.routes.js')(app);
+//var func = require('./app/routes.js');
+//func(app);
 
 // Configuring the database
 var dbConfig = require('./config/database.config.js');
 var mongoose = require('mongoose');
 
-//
-// mongoose.connect(dbConfig.url,{
-//   useMongoClient: true
-// });
+
 
 mongoose.connect(process.env.MONGODB_URI || dbConfig.url,{
   useMongoClient: true

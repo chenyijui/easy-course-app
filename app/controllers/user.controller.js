@@ -53,7 +53,7 @@ exports.findOne = function(req, res) {
 exports.update = function(req, res) {
     User.findById(req.params.userId,function(err, user) {
         if(err) {
-            res.status(500).send({message: "Could not retrieve user with id"+ req.params.useId});
+            res.status(500).send({message: "Could not retrieve user with id"+ req.params.userId});
         }
         user.name = req.body.name;
         user.username = req.body.username;
@@ -63,7 +63,7 @@ exports.update = function(req, res) {
 
         user.save(function(err, data) {
             if(err) {
-                res.status(500).send({message: "Could not update note with id " + req.params.noteId});
+                res.status(500).send({message: "Could not update note with id " + req.params.userId});
             } else {
                 res.send(data);
                 console.log(data);
@@ -74,5 +74,11 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     // Delete a user with the specified userId in the request
-
+    User.remove({_id: req.params.userId}, function(err, data) {
+        if(err) {
+            res.status(500).send({message: "Could not delete note with id " + req.userId});
+        } else {
+            res.send({message: "User deleted successfully!"})
+        }
+    });
 };
