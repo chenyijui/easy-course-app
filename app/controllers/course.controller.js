@@ -80,12 +80,3 @@ exports.update = function(req, res) {
         });
     });
 };
-
-//creat Lesson
-exports.function(req,res) {
-    Course.findById(req.params.courseId,function(err, course) {
-        if(err){
-            res.status(500).send({message: "Could not retrieve user with id"+ req.params.courseId});
-        };
-    };
-};
