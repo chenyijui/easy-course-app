@@ -10,10 +10,12 @@ exports.create = function(req, res) {
         name: req.body.name,
         username: req.body.username,
         password: req.body.password,
-        status:{
-            education: req.body.status.education,
-            info: req.body.status.info
-        }
+        gender: req.body.gender,
+        email: req.body.email,
+        picadder: req.body.picAdder,
+        education: req.body.education,
+        introduction: req.body.introduction,
+
     });
 
     user.save(function(err, data){
@@ -58,8 +60,11 @@ exports.update = function(req, res) {
         user.name = req.body.name;
         user.username = req.body.username;
         user.password = req.body.passward;
-        user.status.education = req.body.education;
-        user.status.info = req.body.info;
+        user.gender = req.body.gender;
+        use.email = req.body.email;
+        use.picAdder = rerq.body.picAdder;
+        user.education = req.body.education;
+        user.introduction = req.body.introduction,
 
         user.save(function(err, data) {
             if(err) {

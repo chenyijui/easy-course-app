@@ -6,11 +6,14 @@ var UserSchema = Schema({
     name  : String,
     username: String,
     password: String,
+    gender: String,
+    email: String,
+    picadder: String,
+    education: String,
+    introduction: String,
     status:{
         complete: [{ type: Schema.ObjectId, ref: 'Course' }],
-        learning: [{ type: Schema.ObjectId, ref: 'Course' }],
-        education: String,
-        info: String
+        learning: [{ type: Schema.ObjectId, ref: 'Course' }]
     }
 }, {
     timestamps: true

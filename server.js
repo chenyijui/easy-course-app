@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 
 // Require User routes
 require('./app/routes/user.routes.js')(app);
+require('./app/routes/course.routes.js')(app);
 //var func = require('./app/routes.js');
 //func(app);
 
