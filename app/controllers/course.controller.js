@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Course = require('../models/course.model.js');
+var Newurl = require('./function');//remove  "?" in url
 
 //creat course
 exports.create = function(req,res) {
@@ -8,6 +9,7 @@ exports.create = function(req,res) {
     }
     console.log("123");
     var v_id = new mongoose.Types.ObjectId();
+    var v_url = Newurl(req.body.v_url);
     console.log(v_id);
     var course = new Course({
         c_name  : req.body.c_name,
@@ -15,7 +17,7 @@ exports.create = function(req,res) {
         c_video: {
             v_id : v_id,
             v_name : req.body.c_video.v_name,
-            v_url :  req.body.c_video.v_url,
+            v_url :  v_url,
         },
         c_brief : req.body.c_brief,
         c_teacher : req.body.c_teacher,

@@ -12,4 +12,6 @@ module.exports = function(app) {
 
     //Create a new lesson
     app.post('/courses/:courseId/lessons', lessons.create);
+
+    app.get('/courses/:courseId/lessons',lessons.findOne);
 }

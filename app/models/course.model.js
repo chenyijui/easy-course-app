@@ -21,13 +21,22 @@ var CourseSchema = Schema({
         cls_comment :[{
             uid : Schema.Types.ObjectId,
             content : String
-        }]
+        }],
+        created : {
+            type : Date,
+            default : Date.now
+        },
+        updated : {
+            type : Date,
+            default : Date.now
+        }
     }],
 },  {
         timestamps: true,
         usePushEach: true
     }
 );
+
 
 var Course = mongoose.model('Course', CourseSchema);
 module.exports = Course;
