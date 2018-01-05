@@ -68,7 +68,7 @@ exports.update = function(req, res) {
 
         user.save(function(err, data) {
             if(err) {
-                res.status(500).send({message: "Could not update note with id " + req.params.userId});
+                res.status(500).send({message: "Could not update user with id " + req.params.userId});
             } else {
                 res.send(data);
                 console.log(data);
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
     // Delete a user with the specified userId in the request
     User.remove({_id: req.params.userId}, function(err, data) {
         if(err) {
-            res.status(500).send({message: "Could not delete note with id " + req.userId});
+            res.status(500).send({message: "Could not delete User with id " + req.userId});
         } else {
             res.send({message: "User deleted successfully!"})
         }

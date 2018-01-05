@@ -23,7 +23,7 @@ exports.create = function(req,res) {
         c_department : req.body.c_department
     });
 
-    course.save(function(err, data){
+    course.save(function(err, data) {
         console.log(data);
         if(err) {
             console.log(err);
@@ -58,6 +58,8 @@ exports.findOne = function(req, res) {
 
 exports.update = function(req, res) {
     Course.findById(req.params.courseId,function(err, course) {
+        console.log(course);
+        console.log("===============");
         if(err) {
             res.status(500).send({message: "Could not retrieve user with id"+ req.params.courseId});
         }
@@ -69,10 +71,11 @@ exports.update = function(req, res) {
         course.c_teacher = req.body.c_teacher;
         course.c_college = req.body.c_college,
         course.c_department = req.body.c_department,
-
+        console.log(course);
+        console.log("===============");
         course.save(function(err, data) {
             if(err) {
-                res.status(500).send({message: "Could not update note with id " + req.params.courseId});
+                res.status(500).send({message: "Could not update course with id " + req.params.courseId});
             } else {
                 res.send(data);
                 console.log(data);

@@ -14,17 +14,20 @@ var CourseSchema = Schema({
     c_college : String,
     c_department : String,
     c_classes: [{
-        cls_id : Schema.Types.ObjectId,
         cls_name : String,
         cls_content : String,
         cls_url : String,
         cls_img : String,
         cls_comment :[{
-            uid : String,
+            uid : Schema.Types.ObjectId,
             content : String
         }]
-    },{timestamps: true}],
-}, {timestamps: true});
+    }],
+},  {
+        timestamps: true,
+        usePushEach: true
+    }
+);
 
 var Course = mongoose.model('Course', CourseSchema);
 module.exports = Course;
