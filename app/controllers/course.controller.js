@@ -58,25 +58,24 @@ exports.findOne = function(req, res) {
 
 exports.update = function(req, res) {
     Course.findById(req.params.courseId,function(err, course) {
-        console.log(course);
-        console.log("===============");
         if(err) {
             res.status(500).send({message: "Could not retrieve user with id"+ req.params.courseId});
         }
-        course.c_name = req.body.c_name;
-        course.c_img = req.body.c_img;
-        course.c_video.v_name = req.body.c_video.v_name;
-        course.c_video.v_url = req.body.c_video.v_url;
-        course.c_brief = req.body.c_video.brief;
-        course.c_teacher = req.body.c_teacher;
-        course.c_college = req.body.c_college,
-        course.c_department = req.body.c_department,
-        console.log(course);
-        console.log("===============");
+        if(typeof(req.body.c_video) != 'undefined'){
+            course.c_video.v_name = req.body.c_video.v_name;
+            course.c_video.v_url = req.body.c_video.v_url;
+        }
+        course.c_name = req.body.c_name|| course.c_name;
+        course.c_img = req.body.c_img || course.c_img;
+        course.c_brief = req.body.c_brief || course.c_img.c_brief;
+        course.c_teacher = req.body.c_teacher || course.c_teacher;
+        course.c_college = req.body.c_college || course.c_college;
+        course.c_department = req.body.c_department|| course.c_department;
         course.save(function(err, data) {
             if(err) {
                 res.status(500).send({message: "Could not update course with id " + req.params.courseId});
             } else {
+                console.log("save");
                 res.send(data);
                 console.log(data);
             }
