@@ -32,7 +32,7 @@ exports.create = function(req,res) {
 };
 
 //Retrieve a single Classes with courseId
-exports.findOne = function(req, res) {
+exports.findOneCourse = function(req, res) {
     Course.findById(req.params.courseId, function(err, data) {
         if(err) {
             res.status(500).send({message: "Could not retrieve user with id " + req.params.courseId});
@@ -66,5 +66,58 @@ exports.findOne = function(req, res) {
             var sortclasses = data.c_classes.sortBy("cls_name");
             res.send(sortclasses);
         }
+    });
+};
+//Update a Lesson with courseId
+exports.update = function(req,res) {
+    Course.findById(req.params.courseId, function(err, data) {
+        var cls_url =  Newurl(req.body.cls_url);
+
+        if(err) {
+            res.status(500).send({message: "Could not retrieve user with id " + req.params.courseId});
+        }
+        var cls_id = req.params.lessonId;
+
+        for(let i = 0; i < data.c_classes.length; i ++) {
+            if(data.c_classes[i]._id === cls_id) {
+                index = i;
+                break;
+            }
+        }
+        var Datetime = new Date().toISOString();
+
+        if(index != null) {
+            data.c_classes[index].cls_name = req.body.cls_name || data.c_classes[index].cls_name;
+            data.c_classes[index].cls_img = req.body.cls_img || data.c_classes[index].cls_img;
+            data.c_classes[index].cls_url = cls_url || data.c_classes[index].cls_url;
+            data.c_classes[index].cls_content = req.body.cls_content || data.c_classes[index].cls_content;
+            data.c_classes[index].updated = Datetime
+        }
+        data.save(function(err,data) {
+            if(err) {
+                res.status(500).send({message: "Could not update lesson with id " + req.params.lessonId});
+            }else{
+                res.send(data.c_classes[index]);
+            }
+        });
+    });
+};
+// Delete a lesson with the specified lessonId in the request
+exports.delete = function(req, res) {
+    Course.findById(req.params.courseId, function(err, data) {
+        var cls_id = req.params.lessonId;
+        for(var i = 0 ; i < data.c_classes.length; i ++){
+            if(data.c_classes[i]._id === cls_id ){
+                    //delete res.locals.jdata[i];
+            	data.c_classes.splice(i,1);
+            }
+        }
+        data.save(function(err,data) {
+            if(err) {
+                res.status(500).send({message: "Could not delete lesson with id " + req.params.lessonId});
+            }else{
+                res.send({message: "User deleted successfully!"})
+            }
+        });
     });
 };

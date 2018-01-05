@@ -77,8 +77,8 @@ exports.update = function(req, res) {
     });
 };
 
+// Delete a user with the specified userId in the request
 exports.delete = function(req, res) {
-    // Delete a user with the specified userId in the request
     User.remove({_id: req.params.userId}, function(err, data) {
         if(err) {
             res.status(500).send({message: "Could not delete User with id " + req.userId});
