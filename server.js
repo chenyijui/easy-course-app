@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 // Require  routes
 
 // create express app
@@ -10,6 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
+
+
+app.use(cors({
+	methods: ['GET', 'POST', 'PATCH', 'OPTION', 'DELETE', 'PUT'],
+	credentials: true,
+	origin: true
+}));
 
 // Require User routes
 require('./app/routes/user.routes.js')(app);
