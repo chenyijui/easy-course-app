@@ -1,11 +1,16 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-// Require  routes
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const keys = require('./config/keys');
+const authRoutes = require('./app/routes/auth.routes');
+const passportSetup = require('./config/passport-setup');
+const path = require('path');
 
 // create express app
-var app = express();
-
+const app = express();
+//set up view engine
+app.set('views', path.resolve(__dirname, './app/views'));
+app.set('view engine', 'ejs');
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -19,6 +24,9 @@ app.use(cors({
 	origin: true
 }));
 
+// auth routes
+app.use('/auth', authRoutes);
+
 // Require User routes
 require('./app/routes/user.routes.js')(app);
 require('./app/routes/course.routes.js')(app);
@@ -26,12 +34,11 @@ require('./app/routes/course.routes.js')(app);
 //func(app);
 
 // Configuring the database
-var dbConfig = require('./config/database.config.js');
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 
-mongoose.connect(process.env.MONGODB_URI || dbConfig.url,{
+mongoose.connect(process.env.MONGODB_URI || keys.dbconfig.url,{
   useMongoClient: true
 });
 
@@ -44,7 +51,7 @@ mongoose.connection.once('open', function() {
 })
 // define a simple route
 app.get('/', function(req, res){
-    res.json({"message": "Welcome to EasyCourse application."});
+    res.render('home');
 });
 
 // listen for requests
