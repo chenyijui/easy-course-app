@@ -5,6 +5,8 @@ const keys = require('./config/keys');
 const authRoutes = require('./app/routes/auth.routes');
 const passportSetup = require('./config/passport-setup');
 const path = require('path');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
 
 // create express app
 const app = express();
@@ -17,6 +19,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
+//set cookieSession
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys:[keys.session.cookieKey],
+}));
 
 app.use(cors({
 	methods: ['GET', 'POST', 'PATCH', 'OPTION', 'DELETE', 'PUT'],
@@ -24,6 +31,10 @@ app.use(cors({
 	origin: true
 }));
 
+
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 // auth routes
 app.use('/auth', authRoutes);
 

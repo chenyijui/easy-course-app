@@ -1,14 +1,23 @@
 module.exports = function(app) {
     var users = require('../controllers/user.controller.js');
 
+    const authCheack = (req, res, next) => {
+        console.log(req.session.passport.user);
+        if(!req.user) {
+            res.send('Please login');
+        }else {
+            next();
+        }
+    };
     // Create a new User
     app.post('/users', users.create);
 
     // Retrieve all User
-    app.get('/users', users.findAll);
+    // app.get('/users', authCheack, users.findAll);
+    app.get('/users', authCheack, (req, res) =>{
+        res.send(req.user);
+    });
 
-    // Retrieve a single User with useId
-    app.get('/users/:userId', users.findOne);
 
     // Update a User with useId
     app.put('/users/:userId', users.update);

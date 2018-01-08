@@ -30,27 +30,18 @@ exports.create = function(req, res) {
 };
 
 
-exports.findAll = function(req, res) {
-    User.find(function(err, notes){
-        if(err) {
-            res.status(500).send({message: "Some error"});
-        } else {
-            res.send(notes);
-        }
-    });
-};
 
-exports.findOne = function(req, res) {
-    User.findById(req.params.userId, function(err, data) {
-        if(err) {
-            res.status(500).send({message: "Could not retrieve user with id " + req.params.userId});
-        } else {
-            res.send(data);
-            console.log(req.params.userId);
-            console.log(data);
-        }
-    });
-};
+// exports.findOne = function(req, res) {
+//     User.findById(req.params.userId, function(err, data) {
+//         if(err) {
+//             res.status(500).send({message: "Could not retrieve user with id " + req.params.userId});
+//         } else {
+//             res.send(data);
+//             console.log(req.params.userId);
+//             console.log(data);
+//         }
+//     });
+// };
 
 exports.update = function(req, res) {
     User.findById(req.params.userId,function(err, user) {

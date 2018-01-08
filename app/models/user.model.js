@@ -5,12 +5,14 @@ var Schema = mongoose.Schema;
 var UserSchema = Schema({
     name  : String,
     username: String,
+    googleid: String,
     password: String,
     gender: String,
     email: String,
     picadder: String,
     education: String,
     introduction: String,
+    role: String,
     status:{
         complete: [{ type: Schema.ObjectId, ref: 'Course' }],
         learning: [{ type: Schema.ObjectId, ref: 'Course' }]
