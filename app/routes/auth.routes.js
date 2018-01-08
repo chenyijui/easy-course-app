@@ -6,13 +6,14 @@ router.get('/login', (req, res) => {
 });
 
 //auth logout
-router.get('/logout',(req, res)=> {
+router.get('/logout',(req, res) => {
     //handle with passport
     req.logout();
+    res.send( {message: "success logout"} );
 });
 
 //auth with google
-router.get('/google', passport.authenticate('google',{
+router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }));
 

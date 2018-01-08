@@ -1,6 +1,8 @@
-var Course = require('../models/course.model');
-var User = require('../models/user.model');
+// var Course = require('../models/course.model');
+// var User = require('../models/user.model');
 
-exports.post = function(req, res) {
-
-};
+// exports.post = function(req, res) {
+//     if() {
+//
+//     }
+// };
