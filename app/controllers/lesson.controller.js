@@ -1,5 +1,5 @@
-var Course = require('../models/course.model.js');
-var Newurl = require('./function');//remove  "?" in url
+const Course = require('../models/course.model.js');
+const Newurl = require('./function');//remove  "?" in url
 
 
 //creat Lesson

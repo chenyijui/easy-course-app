@@ -1,7 +1,7 @@
 module.exports = function(app) {
-    var courses = require('../controllers/course.controller.js');
-    var lessons = require('../controllers/lesson.controller.js');
-    var learing = require('../controllers/learing.controller.js');
+    const courses = require('../controllers/course.controller.js');
+    const lessons = require('../controllers/lesson.controller.js');
+    const learning = require('../controllers/learing.controller.js');
     //COURSE
     // Create a new course
     app.post('/courses', courses.create);
@@ -20,9 +20,15 @@ module.exports = function(app) {
     //Retrieve  lessons with lessonId
     app.get('/courses/:courseId/lessons',lessons.findOneCourse);
     // Update a lesson with lessonId
-    app.put('/courses/:courseId/lessons/:lessonId',lessons.update);
+    app.put('/courses/:courseId/lessons/:lessonId', lessons.update);
     // Delete a lesson with lessonId
-    app.delete('/courses/:courseId/lessons/:lessonId',lessons.delete);
+    app.delete('/courses/:courseId/lessons/:lessonId', lessons.delete);
 
-    // app.delete('/courses/:courseId/complete',learning.post);
+    //LEARING
+    //complete courses
+    app.get('/courses/:courseId/complete', learning.completepost);
+    //learning courses
+    app.get('/courses/:courseId/learning', learning.learningpost);
+    //find all complete courses
+    app.get('/complete', learning.findAll);
 }

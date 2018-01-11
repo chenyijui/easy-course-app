@@ -1,7 +1,8 @@
 module.exports = function(app) {
-    var users = require('../controllers/user.controller.js');
+    const users = require('../controllers/user.controller.js');
 
     const authCheack = (req, res, next) => {
+        console.log(req.user);
         console.log(req.session.passport.user);
         if(!req.user) {
             res.send('Please login');

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 var UserSchema = Schema({
     name  : String,
@@ -14,10 +14,12 @@ var UserSchema = Schema({
     introduction: String,
     role: String,
     status:{
-        complete: [{ type: Schema.ObjectId, ref: 'Course' }],
-        learning: [{ type: Schema.ObjectId, ref: 'Course' }]
+        complete:  [ { type: Schema.Types.ObjectId, ref: 'Course' } ],
+        learning:  [ { type: Schema.Types.ObjectId, ref: 'Course' } ]
     }
-}, {timestamps: true});
+}, {timestamps: true,
+    usePushEach: true
+});
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

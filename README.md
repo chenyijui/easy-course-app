@@ -39,7 +39,8 @@ https://hidden-crag-31172.herokuapp.com/
 
 | 	Route  			| HTTP Verb | Description   |
 | -------- 			| --------  | --------       |
-| /login/google  	| GET       | 使用google登入   |
+| /auth/login/google| GET       | 使用google登入   |
+| /auth/logout      | GET       | 使用者登出   |
 | /users/           | GET       | 取得 "使用者" 資料 |
 | /users/:userId    | GET       | 取得 "某使用者" 資料 |
 | /users/:userId	| PUT		| 修改 "某使用者" 資料 |
@@ -51,8 +52,9 @@ https://hidden-crag-31172.herokuapp.com/
 | /courses/:courseId/lesson    | POST      | 新增 某目錄-課程  "課程單元" 資料|
 | /courses/:courseId/lesson/:lessonId |PUT | 修改 某目錄-課程 某一"課程單元"資料|
 | /courses/:courseId/lesson/:lessonId |DELETE| 刪除  某目錄-課程 某一"課程單元"資料|
-| /courses/:courseId/complete    | POST       | 完成學習某堂課綱|
-| /courses/:courseId/learing     | PUT        | 學習中的課綱|
+| /courses/:courseId/complete    | GET       | 完成學習某堂課綱|
+| /courses/:courseId/learning     | GET        | 學習中的課綱|
+
 
 ## Data Model
 
@@ -72,8 +74,14 @@ https://hidden-crag-31172.herokuapp.com/
   "introduction": (string),
   "role": (string),
   "status": {
-	"complete": [CID1,CID2,CID3],
-	"learning": [CID3,CID4]
+          complete: {
+            courseid: [ c_id ],
+            lessonid: [ cls_id ]
+        },
+        learning: {
+            courseid: [ c_id ],
+            lessonid: [ cls_id ]
+        }
   },
   "timestamp": '2017-06-16T06:25:08+00:00'
 }

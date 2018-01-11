@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var Course = require('../models/course.model.js');
-var Newurl = require('./function');//remove  "?" in url
+const mongoose = require('mongoose');
+const Course = require('../models/course.model.js');
+const Newurl = require('./function');//remove  "?" in url
 
 //creat course
 exports.create = function(req,res) {
@@ -59,7 +59,7 @@ exports.findOne = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    Course.findById(req.params.courseId,function(err, course) {
+    Course.findById(req.params.courseId, function(err, course) {
         if(err) {
             res.status(500).send({message: "Could not retrieve user with id"+ req.params.courseId});
         }
