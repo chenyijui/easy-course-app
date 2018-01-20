@@ -5,7 +5,7 @@ exports.create = function(req, res) {
     if(!req.body.name) {
         res.status(400).send({message: "Users can not be empty"});
     }
-    console.log(req.body.status.education);
+
     var user = new User({
         name: req.body.name,
         username: req.body.username,
@@ -15,6 +15,7 @@ exports.create = function(req, res) {
         picadder: req.body.picAdder,
         education: req.body.education,
         introduction: req.body.introduction,
+        role: req.body.role,
 
     });
 
@@ -31,17 +32,27 @@ exports.create = function(req, res) {
 
 
 
-// exports.findOne = function(req, res) {
-//     User.findById(req.params.userId, function(err, data) {
-//         if(err) {
-//             res.status(500).send({message: "Could not retrieve user with id " + req.params.userId});
-//         } else {
-//             res.send(data);
-//             console.log(req.params.userId);
-//             console.log(data);
-//         }
-//     });
-// };
+exports.findAll = function(req, res) {
+    User.find(function(err, data){
+        if(err) {
+            res.status(500).send({message: "Some error"});
+        } else {
+            res.send(data);
+        }
+    });
+};
+
+exports.findOne = function(req, res) {
+    var username = req.body.username;
+    User.findOne({ username: username }, function(err, data) {
+        if(err) {
+            res.status(500).send({message: "Could not retrieve user "});
+        } else {
+            res.send(data);
+            console.log(data);
+        }
+    });
+};
 
 exports.update = function(req, res) {
     User.findById(req.params.userId,function(err, user) {

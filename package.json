@@ -17,6 +17,7 @@
   "author": "ray",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
@@ -25,6 +26,11 @@
     "mongoose": "^4.13.1",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/npm/express.git"
   }
 }

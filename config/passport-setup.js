@@ -16,7 +16,7 @@ passport.deserializeUser((id , done) => {
 
 passport.use(
     new GoogleStrategy({
-        callbackURL: 'https://hidden-crag-31172.herokuapp.com/auth/google/redirect' || '/auth/google/redirect',
+        callbackURL:  '/auth/google/redirect' || 'https://hidden-crag-31172.herokuapp.com/auth/google/redirect',
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret
     },(accessToken, refreshToken, profile, done) => {
@@ -37,7 +37,7 @@ passport.use(
                 .then(newUser => {
                     console.log('  new User created:'+ newUser);
                     console.log(newUser);
-                    done(null, newUser);
+                    done(null, user);
                 });
             }
         })

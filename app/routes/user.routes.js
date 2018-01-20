@@ -14,12 +14,12 @@ module.exports = function(app) {
     app.post('/users', users.create);
 
     // Retrieve all User
-    // app.get('/users', authCheack, users.findAll);
-    app.get('/users', authCheack, (req, res) =>{
-        res.send(req.user);
-    });
-
-
+    app.get('/users', users.findAll);
+    // app.get('/users', authCheack, (req, res) =>{
+    //     res.send(req.user);
+    // });
+    //
+    app.post('/login', users.findOne);
     // Update a User with useId
     app.put('/users/:userId', users.update);
 
