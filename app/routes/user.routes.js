@@ -5,7 +5,7 @@ module.exports = function(app) {
         console.log(req.user);
         console.log(req.session.passport.user);
         if(!req.user) {
-            res.send('Please login');
+            res.send({message: "Please login"});
         }else {
             next();
         }
@@ -19,7 +19,7 @@ module.exports = function(app) {
     //     res.send(req.user);
     // });
     //
-    app.post('/login', users.findOne);
+    app.get('/info', authCheack, users.findOne);
     // Update a User with useId
     app.put('/users/:userId', users.update);
 

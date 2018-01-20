@@ -15,7 +15,7 @@ exports.create = function(req, res) {
         picadder: req.body.picAdder,
         education: req.body.education,
         introduction: req.body.introduction,
-        role: req.body.role,
+        role: req.body.role
 
     });
 
@@ -43,14 +43,15 @@ exports.findAll = function(req, res) {
 };
 
 exports.findOne = function(req, res) {
-    var username = req.body.username;
-    User.findOne({ username: username }, function(err, data) {
+
+    User.findById({_id: req.session.passport.user}, function(err, data) {
         if(err) {
             res.status(500).send({message: "Could not retrieve user "});
-        } else {
-            res.send(data);
-            console.log(data);
         }
+        
+        res.send(data);
+        console.log(data);
+
     });
 };
 
