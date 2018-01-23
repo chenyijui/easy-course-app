@@ -23,7 +23,7 @@ router.post('/signin', function (req, res, next) {
       // handle youself
         }
         if (!user) {
-            return res.send({message: "username or password error"});
+            return res.status(500).send({message: "username or password error"});
         }
         req.login(user, function (err) {
             if (err) {
@@ -32,7 +32,7 @@ router.post('/signin', function (req, res, next) {
             console.log(req.session);
             console.log(req.user);
 
-            return res.send({message: "sigin successfully"} )
+            return res.send({message: "signing successfully"} )
         })
 
     })(req, res, next)
@@ -49,7 +49,7 @@ router.post('/signup', function (req, res, next) {
             return res.send({message: "some error"} );
         }
         console.log(req.session);
-        return res.send({message: "sigup successfully"});
+        return res.send({message: "signup successfully"});
 
     })(req, res, next)
 });

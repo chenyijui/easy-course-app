@@ -63,9 +63,25 @@ exports.findAll = function(req, res) {
           })
     .exec(function(err, user) {
         if(err) {
+            res.status(500).send({message: "Can't find complete a Course"});
             console.log("Can't find complete a Course");
         } else {
             res.send(user.status.complete);
         }
     })
 };
+
+
+exports.findLering = function(req ,res) {
+    User.findById(req.session.passport.user)
+    .papulate({
+        path: "status.learning"
+    })
+    .exec(function(err, user) {
+        if(err) {
+            res.status(500).send({message: "Can't find learing a Course"});
+        } else {
+            res.send(user.status.learing)
+        }
+    })
+}

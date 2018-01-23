@@ -22,7 +22,7 @@ exports.create = function(req,res) {
         course.save(function(err, course) {
             if(err) {
                 console.log(err);
-                res.status(500).send({message: "Could not creat course with id " + req.params.courseId});
+                res.status(500).send({message: "Could not creat lesson with id " + req.params.courseId});
             } else {
                 res.send(course);
                 console.log(course);
@@ -91,7 +91,7 @@ exports.update = function(req,res) {
             data.c_classes[index].cls_img = req.body.cls_img || data.c_classes[index].cls_img;
             data.c_classes[index].cls_url = cls_url || data.c_classes[index].cls_url;
             data.c_classes[index].cls_content = req.body.cls_content || data.c_classes[index].cls_content;
-            data.c_classes[index].updated = Datetime
+            data.c_classes[index].updated = Datetime;
         }
         data.save(function(err,data) {
             if(err) {

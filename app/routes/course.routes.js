@@ -2,6 +2,8 @@ module.exports = function(app) {
     const courses = require('../controllers/course.controller.js');
     const lessons = require('../controllers/lesson.controller.js');
     const learning = require('../controllers/learing.controller.js');
+
+
     //COURSE
     // Create a new course
     app.post('/courses', courses.create);
@@ -31,4 +33,6 @@ module.exports = function(app) {
     app.get('/courses/:courseId/learning', learning.learningpost);
     //find all complete courses
     app.get('/complete', learning.findAll);
+    //find all learing courses
+    app.get('/learing', learning.findLearing);
 }

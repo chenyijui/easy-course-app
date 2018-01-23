@@ -1,4 +1,5 @@
-
+easy-course-app
+===
 https://hidden-crag-31172.herokuapp.com/
 
 
@@ -6,15 +7,14 @@ https://hidden-crag-31172.herokuapp.com/
 #### 登入
 - 取得某使用者資料
 - 修改某使用者資料
-- 取得課程目錄列表
-#### 目錄-課程
-- 取得 全部課程
-- 取得 某個課程
-- 新增 目錄課程
-- 修改 某目錄課程
-- 刪除 某目錄課程
-#### 課程-單元列表
-- 取得全部 課程單元 列表
+#### 目錄-課綱
+- 取得 全部課綱
+- 取得 某個課綱
+- 新增 課綱
+- 修改 某課綱
+- 刪除 某課綱
+#### 課綱-課程單元
+- 取得全部 課程單元
 - 新增某 課程單元
 - 修改某 課程單元
 - 刪除某 課程單元
@@ -23,7 +23,7 @@ https://hidden-crag-31172.herokuapp.com/
 - 修改 課程單元 留言
 - 刪除 課程單元 留言
 #### 筆記
-- 取得 目錄課程 所有筆記內容
+- 取得 課綱     所有筆記內容
 - 取得 課程單元 所有筆記內容
 - 取得 個人筆記 所有筆記內容
 - 修改 個人筆記 選定筆記內容
@@ -34,27 +34,27 @@ https://hidden-crag-31172.herokuapp.com/
     - 完成課程
 - 未完成的課綱
     - 未完成的課程   
-##### 課程留言評分
+##### 課程評分
 ##### 課綱簡評
 
 | 	Route  			| HTTP Verb | Description   |
 | -------- 			| --------  | --------       |
-| /auth/login/google| GET       | 使用google登入   |
-| /auth/logout      | GET       | 使用者登出   |
-| /users/           | GET       | 取得 "使用者" 資料 |
-| /users/:userId    | GET       | 取得 "某使用者" 資料 |
-| /users/:userId	| PUT		| 修改 "某使用者" 資料 |
-| /courses          | POST      | 新增 "目錄-課程" 資料 |
-| /courses          | GET       | 取得 "某目錄-課程" 資料 |
-| /courses/:courseId		| PUT		| 修改 "某目錄-課程" 資料 |
-| /courses/:courseId		| DELETE	| 刪除 "某目錄-課程" 資料 |
-| /courses/:courseId/lesson    | GET       | 取得 某目錄-課程 所有 "課程單元" 資料|
-| /courses/:courseId/lesson    | POST      | 新增 某目錄-課程  "課程單元" 資料|
-| /courses/:courseId/lesson/:lessonId |PUT | 修改 某目錄-課程 某一"課程單元"資料|
-| /courses/:courseId/lesson/:lessonId |DELETE| 刪除  某目錄-課程 某一"課程單元"資料|
-| /courses/:courseId/complete    | GET       | 完成學習某堂課綱|
+| /auth/signin       | POST      | 使用者驗證 登入   |
+| /auth/signup      | POST      | 使用者 註冊      |
+| /info    | GET       | 取得某使用者資料 |
+| /users/:userId	| PUT		| 修改某使用者資料 |
+| /courses          | POST      | 取得全部課綱 |
+| /courses/:courseId        | GET       | 取得 某個課綱|
+| /courses/:courseId		| PUT		| 修改 某個課綱|
+| /courses/:courseId		| DELETE	| 刪除 某課綱 |
+| /courses/:courseId/lessons    | GET       | 取得全部 課程單元|
+|/courses/:courseId/lessons    | POST      | 新增某 課程單元|
+| /courses/:courseId/lessons/:lessonId |PUT | 修改 某課綱 某一"課程單元"資料|
+| /courses/:courseId/lessons/:lessonId |DELETE| 刪除 某課程單元|
+| /courses/:courseId/complete    | GET       | 完成的課綱|
 | /courses/:courseId/learning     | GET        | 學習中的課綱|
-
+| /complete    | GET        | 取得某使用者完成的課綱|
+| /learing    | GET        | 取得某使用者學習中的課綱|
 
 ## Data Model
 
@@ -168,13 +168,13 @@ catalog:note,rating
 }
 ```
 
-## API
-
+# API
+## 使用者
 ### 登入
-POST `/login`
+POST `/auth/signin`
 
 #### Request
-```json
+```
 {
   "username": (string),
   "password": (string)
@@ -182,12 +182,44 @@ POST `/login`
 ```
 #### Response
 -	`200 (ok)`
-user object
--	`400 (err)`
-login error
+jeson object
+    ```
+    {message: "signing successfully"}
+    ```
+-	`500 (err)`
+jeson object
+    ```
+    {message: "username or password error"}
+    ```
+### 註冊
+POST `/auth/signup`
+
+#### Request
+```
+{
+    "username": "",
+    "password": "",
+    "gender": "",
+    "email":"",
+    "picadder": "",
+    "education": "",
+    "introduction": ""
+}
+```
+#### Response
+-	`200 (ok)`
+jeson object
+    ```
+    {message: "signup successfully"}
+    ```
+-	`500 (err)`
+jeson object
+    ```
+    {message: "username or password error"}
+    ```
 
 ### 取得某使用者資料
-GET `/users/:useId`
+GET `/info`
 
 #### Request
 none
@@ -195,26 +227,62 @@ none
 -	`200(OK)`
 user object
 
+    ```
+    {
+      "uid": (string),
+      "googleid": (string),
+      "name": (string),
+      "username": (string),
+      "password": (string),
+      "position": (string),
+      "gender": (string f, m, o),
+      "email": (string),
+      "picaddr": (string),
+      "education": (string),
+      "introduction": (string),
+      "role": (string),
+      "status": {
+              complete: {
+                courseid: [ c_id ],
+                lessonid: [ cls_id ]
+            },
+            learning: {
+                courseid: [ c_id ],
+                lessonid: [ cls_id ]
+            }
+      },
+      "timestamp": '2017-06-16T06:25:08+00:00'
+    }
+    ```
+
 ### 修改某使用者資料
 PUT `/users/:useId`
 
 #### Request
-```json
+```
 {
-  "userName": (string),
-  "password": (string),
+  "name": "Tomato",
+  "password": "12345678",
+  "position": (string),
   "gender": (string f, m, o),
-  "status": {
-	"education": (string),
-	"info": (string)
-  }
+  "email": (string),
+  "picaddr": (string),
+  "education": (string),
+  "introduction": (string)
 }
 ```
+
 #### Response
 -	`200(OK)`
 user object
+- `500(err)`
+jeson object
+    ```
+    {message: "Could not update user with id 'user_id' "}
+    ```
 
-### 取得全部課程
+## 課綱
+### 取得全部課綱
 GET `/courses`
 
 #### Request
@@ -222,3 +290,261 @@ none
 #### Response
 -	`200(OK)`
 Courses object array
+- `500(err)`
+jeson object
+    ```
+    {"message" "Some error"}
+    ```
+### 取得 某個課綱
+
+GET `/courses/:courseId`
+
+#### Request
+none
+#### Response
+- `200(OK)`
+Courses object
+    ```
+    {
+      "c_id": (string),
+      "c_name": (string),
+      "c_img": (string),
+      "c_video"{
+          "v_id" : (string),
+          "v_name" : (string),
+          "v_url" : (string)
+      },
+      "c_brief": (String),
+      "c_teacher": (string),
+      "c_college": (string),
+      "c_department": (string),
+      "c_classes": [{
+          "cls_id": (string),
+          "cls_name": (string),
+          "cls_content": (string),
+          "cls_url": (string),
+          "cls_img": (string),
+          "cls_comment": [{
+              "uid": (string),
+              "content": (string)
+          }],
+          "cls_timestamp": ''
+       }],
+      "c_timestamp": '2017-06-16T06:25:08+00:00'
+    }
+    ```
+- `500(err)`
+jeson object
+    ```
+    {"message" "Some error"}
+    ```
+### 修改 某個課綱
+
+PUT `/courses/:courseId`
+
+#### Request
+```
+{
+  "c_name": (string),
+  "c_img": (string),
+  "c_video"{
+      "v_name" : (string),
+      "v_url" : (string)
+      },
+  "c_brief": (String),
+  "c_teacher": (string),
+  "c_college": (string),
+  "c_department": (string)
+}
+```
+
+#### Response
+- `200(OK)`
+Courses object
+- `500(err)`
+jeson bject
+    ```
+     {"message":"Could not update course with userId}
+    ```
+
+### 刪除 某課綱
+DELETE `/courses/:courseId`
+#### Request
+none
+#### Response
+- `200(OK)`
+jeson object
+    ```
+    {message: "User deleted successfully!"}
+    ```
+
+- `500(err)`
+jeson object
+    ```
+    {"message":"Could not update course with userId "}
+    ```
+
+## 課綱-課程單元
+### 取得全部 課程單元
+GET `/courses/:courseId/lessons`
+#### Request
+none
+#### Response
+- `200(OK)`
+lessons Array
+    ```
+    [{
+      "cls_id": (string),
+      "cls_name": (string),
+      "cls_content": (string),
+      "cls_url": (string),
+      "cls_img": (string),
+      "cls_comment": [{
+          "uid": (string),
+          "content": (string)
+        }]
+     }
+    ...]
+    ```
+
+
+- `500(err)`
+jeson object
+    ```
+    {message: "Some error"}
+    ```
+ ### 新增某 課程單元
+ POST  `/courses/:courseId/lessons`
+ #### Request
+ none
+ #### Response
+ - `200(OK)`
+ lessons object
+     ```
+     {
+        cls_name : (String),
+        cls_content : (String),
+        cls_url : (String),
+        cls_img : (String)
+
+     }
+     ```
+
+- `500(err)`
+jeson object
+    ```
+    {message: "Could not creat lesson with courseID" }
+    ```
+
+
+
+### 修改某 課程單元
+ PUT  `/courses/:courseId/lessons/:lessonId`
+#### Resquest
+```
+ {
+    cls_name : (String),
+    cls_content : (String),
+    cls_url : (String),
+    cls_img : (String)
+
+ }
+ ```
+#### Response
+ - `200(OK)`
+ lesson object
+ - `500(OK)`
+ jeson object
+     ```
+     {message: "Could not update lesson with lessonId"}
+     ```
+### 刪除 某課程單元
+DELETE `/courses/:courseId/lessons/:lessonId`
+#### Resquest
+none
+#### Response
+ - `200(OK)`
+ jeson object
+    ```
+    {message: "User deleted successfully!"}
+    ```
+ - `500(OK)`
+ jeson object
+     ```
+     {message: "Could not update lesson with lessonId"}
+     ```
+## 課程紀錄
+### 完成的課綱
+GET `/courses/:courseId/complete`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+jeson object
+    ```
+    {message: "completed Course" }
+    ```
+- `500(OK)`
+jeson object
+    ```
+    {message: "Could not save complete course with courseId"}
+    ```
+### 學習中的課綱
+GET `/courses/:courseId/learning`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+jeson object
+    ```
+     {message: "learning Course" }
+    ```
+- `500(OK)`
+jeson object
+    ```
+    {message: "Could not save learning course with courseId"}
+    ```
+### 取得某使用者完成的課綱
+GET `complete`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+complete Array
+    ```
+    complete: [{
+                  "c_id": (string),
+                  ...
+                  ...
+                  ...
+                  ...
+                  ...
+                }...]
+    ```
+- `500(err)`
+jeson object
+    ```
+    {message: "Can't find complete a Course"}
+    ```
+### 取得某使用者學習中的課綱
+GET `learing`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+complete Array
+    ```
+    learing: [{
+                  "c_id": (string),
+                  ...
+                  ...
+                  ...
+                  ...
+                  ...
+                }...]
+    ```
+- `500(err)`
+jeson object
+    ```
+    {message: "Can't find learing a Course"}
+    ```
