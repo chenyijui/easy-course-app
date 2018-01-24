@@ -2,7 +2,7 @@ module.exports = function(app) {
     const courses = require('../controllers/course.controller.js');
     const lessons = require('../controllers/lesson.controller.js');
     const learning = require('../controllers/learning.controller.js');
-
+    const notes = require('../controllers/note.controller.js');
 
     //COURSE
     // Create a new course
@@ -35,4 +35,20 @@ module.exports = function(app) {
     app.get('/complete', learning.findAll);
     //find all learing courses
     app.get('/learning', learning.findLearning);
+
+    //NOTES
+    //Create a new note
+    app.post('/lessons/:lessonsId/notes' , notes.create);
+    //Delete a note
+    app.delete('/notes/:notesId' , notes.delete);
+    //find all note
+    app.get('/notes', notes.findAll);
+    //find all goodrating
+    app.get('/courses/:coursesId/lessons/:lessonsId/notes/goodrating', notes.findGoodrating);
+    //find all badrating
+    app.get('/courses/:coursesId/lessons/:lessonsId/notes/badrating', notes.findBadrating);
+    //find all goodrating
+    app.get('/courses/:coursesId/lessons/:lessonsId/notes/comment', notes.findComment);
+    //avg course rating score
+    app.get('/courses/:coursesId/notes', notes.avgScore);
 }

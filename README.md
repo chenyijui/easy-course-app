@@ -23,8 +23,10 @@ https://hidden-crag-31172.herokuapp.com/
 - 修改 課程單元 留言
 - 刪除 課程單元 留言
 #### 筆記
-- 取得 課綱     所有筆記內容
-- 取得 課程單元 所有筆記內容
+- 取得 平均分數(簡評)
+- 取得 課程單元 評價(抱怨,討論,好評)
+- 新增 課程單元 評價(抱怨,討論,好評)
+-
 - 取得 個人筆記 所有筆記內容
 - 修改 個人筆記 選定筆記內容
 - 刪除 個人筆記 選定筆記內容
@@ -33,7 +35,7 @@ https://hidden-crag-31172.herokuapp.com/
 - 完成的課綱
     - 完成課程
 - 未完成的課綱
-    - 未完成的課程   
+    - 未完成的課程
 ##### 課程評分
 ##### 課綱簡評
 
@@ -54,14 +56,14 @@ https://hidden-crag-31172.herokuapp.com/
 | /courses/:courseId/complete    | GET       | 完成的課綱|
 | /courses/:courseId/learning     | GET        | 學習中的課綱|
 | /complete    | GET        | 取得某使用者完成的課綱|
-| /learing    | GET        | 取得某使用者學習中的課綱|
+| /learning    | GET        | 取得某使用者學習中的課綱|
 
 ## Data Model
 
 ### UsersProfile
 ```
 {
-  "uid": (string),
+  "_id": (string),
   "googleid": (string),
   "name": (string),
   "username": (string),
@@ -69,7 +71,7 @@ https://hidden-crag-31172.herokuapp.com/
   "position": (string),
   "gender": (string f, m, o),
   "email": (string),
-  "picaddr": (string),
+  "picaddr":(string),
   "education": (string),
   "introduction": (string),
   "role": (string),
@@ -89,7 +91,7 @@ https://hidden-crag-31172.herokuapp.com/
 ### Courses
 ```
 {
-  "c_id": (string),
+  "_id": (string),
   "c_name": (string),
   "c_img": (string),
   "c_video"{
@@ -102,7 +104,7 @@ https://hidden-crag-31172.herokuapp.com/
   "c_college": (string),
   "c_department": (string),
   "c_classes": [{
-      "cls_id": (string),
+      "_id": (string),
       "cls_name": (string),
       "cls_content": (string),
       "cls_url": (string),
@@ -119,7 +121,7 @@ https://hidden-crag-31172.herokuapp.com/
 ### example of course
 ```
 {
-  "c_id": 1,
+  "_id": 1,
   "c_name": Software Engineering,
   "c_img": https:XXXXXXX.jpg,
   "c_video"{
@@ -132,7 +134,7 @@ https://hidden-crag-31172.herokuapp.com/
   "c_college": 'NCNU',
   "c_department": 'Information Management',
   "c_classes": [{
-      "cls_id": 1,
+      "_id": 1,
       "cls_number": 1,
       "cls_name": 'SE class 1',
       "cls_content": 'Introduction of SE',
@@ -141,7 +143,7 @@ https://hidden-crag-31172.herokuapp.com/
       "cls_timestamp": '2017.156165XXXXXXXX'
    },
    {
-      "cls_id": 2,
+      "_id": 2,
       "cls_number": 2,
       "cls_name": 'SE class 2',
       "cls_content": 'Implement of SE',
@@ -158,11 +160,11 @@ https://hidden-crag-31172.herokuapp.com/
 ```
 catalog:note,rating
 {
-    "nid": (string),
+    "_id": (string),
     "catalog" (string),
     "author": (string),
     "course": (string),
-    "class": (string),
+    "lesson": (string),
     "content": (string),
     "score": (number)
 }
@@ -381,7 +383,7 @@ jeson object
 - `500(err)`
 jeson object
     ```
-    {"message":"Could not update course with userId "}
+    {"message":"Could not delete course with userId "}
     ```
 
 ## 課綱-課程單元
@@ -527,14 +529,14 @@ jeson object
     {message: "Can't find complete a Course"}
     ```
 ### 取得某使用者學習中的課綱
-GET `learing`
+GET `learning`
 #### Resquest
 none
 #### Response
 - `200(OK)`
 complete Array
     ```
-    learing: [{
+    learning: [{
                   "c_id": (string),
                   ...
                   ...
@@ -546,5 +548,127 @@ complete Array
 - `500(err)`
 jeson object
     ```
-    {message: "Can't find learing a Course"}
+    {message: "Can't find learning a Course"}
+    ```
+### 取得 平均分數(簡評)
+GET `courses/:coursesId/notes`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+note object
+    ```
+    {
+        "score": avg_score
+    }
+    ```
+- `500(err)`
+jeson object
+    ```
+    {message: "Can't find Courses note"}
+    ```
+
+### 取得 課程單元 評價(抱怨,討論,好評)
+GET `/lessons/:lessonsId/notes/goodrating`
+GET `/lessons/:lessonsId/notes/badrating`
+GET `/lessons/:lessonsId/notes/comment`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+goodrating array
+    ```
+        [{
+            "_id": (string),
+            "catalog":"goodrating",
+            "author": User_id,
+            "lesson": lesson_id,
+            "content": (string),
+            "score": (0~5)
+        }]
+    ```
+    badrating array
+    ```
+        [{
+            "_id": (string),
+            "catalog": "badrating",
+            "author": User_id,
+            "lesson": lesson_id,
+            "content": (string),
+            "score": (0~5)
+        }]
+    ```
+    comment array
+    ```
+        [{
+            "_id": (string),
+            "catalog": "comment",
+            "author": User_id,
+            "lesson": lesson_id,
+            "content": (string),
+        }]
+    ```
+- `500(err)`
+jeson object
+    ```
+    {message: "Can't find Courses note"}
+    ```
+### 新增 課程單元 評價(抱怨,討論,好評)
+POST `lessons/:lessonsId/notes`
+#### Resquest
+goodrating object
+```
+    {
+        "_id": (string),
+        "catalog":"goodrating",
+        "author": User_id,
+        "lesson": lesson_id,
+        "content": (string),
+        "score": (0~5)
+    }
+```
+badrating object
+```
+    {
+        "_id": (string),
+        "catalog": "badrating",
+        "author": User_id,
+        "lesson": lesson_id,
+        "content": (string),
+        "score": (0~5)
+    }
+```
+comment object
+```
+    {
+        "_id": (string),
+        "catalog": "comment",
+        "author": User_id,
+        "lesson": lesson_id,
+        "content": (string),
+    }
+```
+#### Response
+- `200(OK)`
+note object
+
+- `500(err)`
+jeson object
+    ```
+    {message: "Some error"}
+    ```
+### 刪除 課程單元 評價(抱怨,討論,好評)
+DELETE `lessons/:lessonsId/notes`
+#### Resquest
+none
+#### Response
+- `200(OK)`
+note object
+    ```
+    {message: " Deleted successfully!"}
+    ```
+- `500(err)`
+jeson object
+    ```
+    {message: "Could not delete notes with noteId"}
     ```
