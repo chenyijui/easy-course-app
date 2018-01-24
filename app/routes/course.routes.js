@@ -1,7 +1,7 @@
 module.exports = function(app) {
     const courses = require('../controllers/course.controller.js');
     const lessons = require('../controllers/lesson.controller.js');
-    const learning = require('../controllers/learing.controller.js');
+    const learning = require('../controllers/learning.controller.js');
 
 
     //COURSE
