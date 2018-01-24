@@ -58,7 +58,7 @@ passport.use('signup', new LocalStrategy({
                     password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
                     gender: req.body.gender,
                     email: req.body.email,
-                    picadder: req.body.picAdder,
+                    picadder: req.body.picadder,
                     education: req.body.education,
                     introduction: req.body.introduction
                 });
