@@ -55,6 +55,7 @@ passport.use('signup', new LocalStrategy({
                 var user = new User({
                     name: req.body.name,
                     username: username,
+                    position: req.body.position,
                     password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
                     gender: req.body.gender,
                     email: req.body.email,

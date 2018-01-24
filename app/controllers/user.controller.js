@@ -64,8 +64,9 @@ exports.update = function(req, res) {
         user.password = req.body.passward || user.password;
         user.position = req.body.position || user.position;
         user.gender = req.body.gender || user.gender;
-        use.email = req.body.email || use.email;
-        use.picAddr = rerq.body.picaddr || use.picaddr;
+        user.email = req.body.email || user.email;
+        user.position = req.body.position || user.position;
+        user.picAddr = rerq.body.picaddr || user.picaddr;
         user.education = req.body.education ||　user.education;
         user.introduction = req.body.introduction || user.introduction ;
 
