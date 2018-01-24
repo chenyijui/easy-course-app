@@ -72,7 +72,7 @@ exports.findAll = function(req, res) {
 };
 
 
-exports.findLering = function(req ,res) {
+exports.findLearing = function(req ,res) {
     User.findById(req.session.passport.user)
     .papulate({
         path: "status.learning"
