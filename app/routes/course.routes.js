@@ -34,5 +34,5 @@ module.exports = function(app) {
     //find all complete courses
     app.get('/complete', learning.findAll);
     //find all learing courses
-    app.get('/learing', learning.findLearing);
+    app.get('/learning', learning.findLearing);
 }

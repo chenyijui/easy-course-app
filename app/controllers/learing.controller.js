@@ -72,14 +72,14 @@ exports.findAll = function(req, res) {
 };
 
 
-exports.findLearing = function(req ,res) {
+exports.findLearning = function(req ,res) {
     User.findById(req.session.passport.user)
     .papulate({
         path: "status.learning"
     })
     .exec(function(err, user) {
         if(err) {
-            res.status(500).send({message: "Can't find learing a Course"});
+            res.status(500).send({message: "Can't find learning a Course"});
         } else {
             res.send(user.status.learning)
         }
