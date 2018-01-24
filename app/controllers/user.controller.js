@@ -12,7 +12,7 @@ exports.create = function(req, res) {
         password: req.body.password,
         gender: req.body.gender,
         email: req.body.email,
-        picadder: req.body.picAdder,
+        picaddr: req.body.picAddr,
         education: req.body.education,
         introduction: req.body.introduction,
         role: req.body.role
@@ -65,7 +65,7 @@ exports.update = function(req, res) {
         user.position = req.body.position || user.position;
         user.gender = req.body.gender || user.gender;
         use.email = req.body.email || use.email;
-        use.picAdder = rerq.body.picAdder || use.picAdder;
+        use.picAddr = rerq.body.picaddr || use.picaddr;
         user.education = req.body.education ||　user.education;
         user.introduction = req.body.introduction || user.introduction ;
 
