@@ -81,7 +81,7 @@ exports.findLearing = function(req ,res) {
         if(err) {
             res.status(500).send({message: "Can't find learing a Course"});
         } else {
-            res.send(user.status.learing)
+            res.send(user.status.learning)
         }
     })
 };
