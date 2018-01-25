@@ -38,7 +38,7 @@ module.exports = function(app) {
 
     //NOTES
     //Create a new note
-    app.post('/lessons/:lessonsId/notes' , notes.create);
+    app.post('/courses/:coursesId/lessons/:lessonsId/notes' , notes.create);
     //Delete a note
     app.delete('/notes/:notesId' , notes.delete);
     //find all note

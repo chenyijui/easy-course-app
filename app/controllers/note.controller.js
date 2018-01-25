@@ -5,7 +5,7 @@ exports.create = function(req ,res) {
     var note = new Note({
         catalog : req.body.catalog,
         author : req.session.user,
-        course: req.params.lessonsId,
+        course: req.params.coursesId,
         lesson : req.params.lessonsId,
         content : req.body.content,
         score :  req.body.score
