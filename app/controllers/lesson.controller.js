@@ -17,7 +17,7 @@ exports.create = function(req,res) {
         };
         console.log(req.params.courseId);
         //push c_classes into c_classes: [{}]
-        if(course.c_classes.findindex(x => x.cls_name === req.body.cls_name) == -1){
+        if(course.c_classes.findIndex(x => x.cls_name === req.body.cls_name) == -1){
             course.c_classes.push(c_classe);
             console.log(course);
             course.save(function(err, course) {
