@@ -17,17 +17,23 @@ exports.create = function(req,res) {
         };
         console.log(req.params.courseId);
         //push c_classes into c_classes: [{}]
-        course.c_classes.push(c_classe);
-        console.log(course);
-        course.save(function(err, course) {
-            if(err) {
-                console.log(err);
-                res.status(500).send({message: "Could not creat lesson with id " + req.params.courseId});
-            } else {
-                res.send(course);
-                console.log(course);
-            }
-        });
+        if(course.c_classes.map(x => x.cls_name).indexOf(req.body.cls_name) ==-1){
+            course.c_classes.push(c_classe);
+            console.log(course);
+            course.save(function(err, course) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({message: "Could not creat lesson with id " + req.params.courseId});
+                } else {
+                    res.send(course);
+                    console.log(course);
+                }
+            });
+        }else {
+            res.send({message: "Already have this lesson"});
+        }
+
+
     });
 };
 
