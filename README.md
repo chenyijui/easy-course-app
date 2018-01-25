@@ -569,9 +569,9 @@ jeson object
     ```
 
 ### 取得 課程單元 評價(抱怨,討論,好評)
-GET `/lessons/:lessonsId/notes/goodrating`
-GET `/lessons/:lessonsId/notes/badrating`
-GET `/lessons/:lessonsId/notes/comment`
+GET `/courses/:coursesId/lessons/:lessonsId/notes/goodrating`
+GET `/courses/:coursesId/lessons/:lessonsId/notes/badrating`
+GET `/courses/:coursesId/lessons/:lessonsId/notes/comment`
 #### Resquest
 none
 #### Response
@@ -614,7 +614,7 @@ jeson object
     {message: "Can't find Courses note"}
     ```
 ### 新增 課程單元 評價(抱怨,討論,好評)
-POST `lessons/:lessonsId/notes`
+POST `/courses/:coursesId/lessons/:lessonsId/notes`
 #### Resquest
 goodrating object
 ```
@@ -622,6 +622,7 @@ goodrating object
         "_id": (string),
         "catalog":"goodrating",
         "author": User_id,
+        "course": cuurse_id,
         "lesson": lesson_id,
         "content": (string),
         "score": (0~5)
@@ -633,6 +634,7 @@ badrating object
         "_id": (string),
         "catalog": "badrating",
         "author": User_id,
+        "course": cuurse_id,
         "lesson": lesson_id,
         "content": (string),
         "score": (0~5)
@@ -644,6 +646,7 @@ comment object
         "_id": (string),
         "catalog": "comment",
         "author": User_id,
+        "course": cuurse_id,
         "lesson": lesson_id,
         "content": (string),
     }
