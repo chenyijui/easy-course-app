@@ -86,7 +86,7 @@ exports.update = function(req, res) {
 };
 // Delete a course with the specified courseId in the request
 exports.delete = function(req, res) {
-    User.remove({_id: req.params.courseId}, function(err, data) {
+    Course.remove({_id: req.params.courseId}, function(err, data) {
         if(err) {
             res.status(500).send({message: "Could not delete course with id " + req.courseId});
         } else {
