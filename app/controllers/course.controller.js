@@ -9,7 +9,7 @@ exports.create = function(req,res) {
     }
     console.log("123");
     var v_id = new mongoose.Types.ObjectId();
-    var v_url = Newurl(req.body.v_url);
+    var v_url = Newurl(req.body.c_video.v_url);
     console.log(v_id);
     var course = new Course({
         c_name  : req.body.c_name,
